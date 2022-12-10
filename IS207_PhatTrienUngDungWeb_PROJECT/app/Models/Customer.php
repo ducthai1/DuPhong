@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Customer extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'email',
+        'phone',
+        'address',
+        'spend',
+        'content'
+    ];
+
+    public function orders() {
+        return $this->hasOne(Bill_khachhang::class, 'customer_id', 'id');
+    }
+
+    public function cthd() {
+        return $this->hasManyThrough(CTHD::class, Bill_khachhang::class, 'customer_id', 'id', 'id', 'id');
+    }
+}
